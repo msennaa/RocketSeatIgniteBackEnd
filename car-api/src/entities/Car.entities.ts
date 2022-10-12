@@ -3,8 +3,10 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { CarImage } from './CarImage.entities';
 
 @Entity('cars')
 export class Car {
@@ -31,6 +33,9 @@ export class Car {
 
   @Column()
   brand: string;
+
+  @OneToMany(() => CarImage, (carimage) => carimage.car)
+  carImage: CarImage;
 
   @CreateDateColumn({
     type: 'timestamp',
