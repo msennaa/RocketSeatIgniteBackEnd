@@ -4,9 +4,11 @@ import {
   CreateDateColumn,
   Entity,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { CarImage } from './CarImage.entities';
+import { Rental } from './Rentals.entities';
 
 @Entity('cars')
 export class Car {
@@ -33,6 +35,9 @@ export class Car {
 
   @Column()
   brand: string;
+
+  @OneToOne(() => Rental, (rental) => rental.car)
+  rental: Rental;
 
   @OneToMany(() => CarImage, (carimage) => carimage.car)
   carImage: CarImage;

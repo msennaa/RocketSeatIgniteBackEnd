@@ -3,8 +3,10 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Rental } from './Rentals.entities';
 
 @Entity('users')
 export class User {
@@ -25,6 +27,9 @@ export class User {
 
   @Column({ default: false })
   admin: boolean;
+
+  @OneToOne(() => Rental, (rental) => rental.user)
+  rental: Rental;
 
   @CreateDateColumn({
     type: 'timestamp',
