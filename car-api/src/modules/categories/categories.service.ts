@@ -5,6 +5,7 @@ import {
   Logger,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { IPaginationOptions, paginateRaw } from 'nestjs-typeorm-paginate';
 import { Categories } from 'src/entities/Categories.entities';
 import { Repository } from 'typeorm';
 
@@ -28,6 +29,19 @@ export class CategoriesService {
       }
       this.logger.log('Category successfully created.');
       return await this.categoriesRepository.save(body);
+    } catch (error) {
+      this.logger.error(`Failed to create users. Error: ${error.message}.`);
+      throw new HttpException(error.message, error.status || 500);
+    }
+  }
+
+  async getCategoriesPaginated(paginate: IPaginationOptions) {
+    try {
+      const categories = this.categoriesRepository
+        .createQueryBuilder('category')
+        .select('*');
+
+      return await paginateRaw(categories, paginate);
     } catch (error) {
       this.logger.error(`Failed to create users. Error: ${error.message}.`);
       throw new HttpException(error.message, error.status || 500);
