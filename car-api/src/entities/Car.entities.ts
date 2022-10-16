@@ -1,4 +1,6 @@
 import { DriverLicense } from 'src/enum/enum.status';
+import { CarImage } from './CarImage.entities';
+import { Rental } from './Rentals.entities';
 import {
   Column,
   CreateDateColumn,
@@ -7,8 +9,6 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { CarImage } from './CarImage.entities';
-import { Rental } from './Rentals.entities';
 
 @Entity('cars')
 export class Car {
