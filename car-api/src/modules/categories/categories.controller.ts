@@ -1,4 +1,5 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { IPaginationOptions } from 'nestjs-typeorm-paginate';
 import { CategoriesService } from './categories.service';
 import { CreateCategoriesDto } from './dto/create.categories.dto';
 
@@ -9,5 +10,10 @@ export class CategoriesController {
   @Post()
   async createCategory(@Body() body: CreateCategoriesDto) {
     return await this.categoriesService.createCategories(body);
+  }
+
+  @Get()
+  async getCategoriesPaginated(@Query() option: IPaginationOptions) {
+    return await this.categoriesService.getCategoriesPaginated(option);
   }
 }
